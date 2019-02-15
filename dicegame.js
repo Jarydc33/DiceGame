@@ -6,21 +6,20 @@ function startGame(){
 	//let currentLevel = [4, 6, 8, 10, 12, 20];
 
 	console.log("Let`s begin! We will roll to see who will go first." );
-	initialRoll();
-
+	//initialRoll();
 	let userInput;
 	let firstRoll;
 
 	if(initialRoll(true)){
 
 		console.log("The computer won the roll and will begin every round.")
-		let firstRoll = 1;
+		firstRoll = 1;
 	}
 
 	else{
 
 		console.log("You won the roll and will begin every round.")
-
+		firstRoll = 2;
 	}
 
 
@@ -41,39 +40,89 @@ function beginRound1(whoStart){
 
 	let diceSides = 4;
 	let numberDice = 4;
-	let correctAnswer = [1, 2, 3, 4];
+	let correctAnswer = [1,2,3,4];
 	let computerAnswer = [];
 	let yourAnswer = [];
+	let isCorrectComputer;
+	let isCorrectUser;
 
-	if(whoStart == 1){
+	do{
+		if(whoStart % 2 != 0){
 
-		do{
 			for(let i = 0; i < numberDice; i++ ){
 				
-				rollDice(diceSides);
 				computerAnswer[i] = rollDice(diceSides);
 
 			}
-			compareDice(correctAnswer,computerAnswer);
+			isCorrectComputer = compareDice(correctAnswer,computerAnswer, whoStart);
 
-		}while(compareDice == false);
+		}
+		else{
+			for(let i = 0; i < numberDice; i++ ){
+				
+				yourAnswer[i] = rollDice(diceSides);
 
+			}
+			isCorrectUser = compareDice(correctAnswer,yourAnswer, whoStart);
 
-	}
-	else{
-
-
-
-
-
-	}
+		}
+		whoStart++;
+	} while(isCorrectUser != true && isCorrectComputer != true);
 
 }
 
 
-function compareDice(correct, potential){
+function compareDice(correct, potential, whoStart){
+
+	let check = 0;
+	let isCorrect;
 
 	potential.sort(function(a,b){return a-b});
+
+	if(whoStart % 2 != 0){
+	
+		for(let i = 0; i < correct.length; i++){
+
+			if(potential[i] == correct[i]){
+
+				check++;
+
+			}
+			else{return false;}
+		}
+
+		
+		if(check == 4){
+			console.log("The computer got it right!")
+			console.log(potential);
+			return true;
+		}
+	}
+	else{
+
+		for(let i = 0; i < correct.length; i++){
+
+			if(potential[i] == correct[i]){
+
+				check++;
+
+			}
+			else{return false;}
+		}
+
+		
+		if(check == 4){
+			console.log("You got it right!")
+			console.log(potential);
+			return true;
+		}
+
+
+
+
+
+
+	}
 
 }
 
