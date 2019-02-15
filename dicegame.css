@@ -1,0 +1,40 @@
+html{
+
+}
+
+body{
+
+}
+
+#banner{
+
+	width:100%;
+	height: 100px;
+	background-color: black;
+
+}
+
+#gameScreen{
+
+	width:50%;
+	height:35%;
+	background-color: black;
+	position:absolute;
+	top:25%;
+	right:25%;
+	box-shadow: 10px 10px 10px #ccc;
+	border: solid 1px #666666;
+	color:green;
+	
+
+}
+
+#buttons{
+	position:absolute;
+	right: 47%;
+	top:60%;
+	margin: 5px;
+	cursor: pointer;
+
+
+}
