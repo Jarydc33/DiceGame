@@ -147,6 +147,56 @@ function beginRound2(whoStart){
 
 function beginRound3(whoStart){
 
+	let diceSides = 8;
+	let numberDice = 6;
+	let correctAnswer = [1,1,1,8,8,8];
+	let computerAnswer = [];
+	let yourAnswer = [];
+	let isCorrectComputer;
+	let isCorrectUser;
+	let userInput;
+
+	tempScore *= 2;
+	if(numRound == 2){
+		console.log("Round 3");
+		console.log("In round three, your goal will be to get three sets of three of a kind - ones and eights. You will be playing with 6 eight-sided dice.");
+		tempScore = 200; numRound++;
+	}
+
+		do{
+			userInput = prompt("Type roll when you are ready!")
+	}while(userInput.toUpperCase() != "ROLL");
+
+	do{
+		if(whoStart % 2 != 0){
+
+			for(let i = 0; i < numberDice; i++ ){
+				
+				computerAnswer[i] = rollDice(diceSides);
+
+			}
+			isCorrectComputer = compareDice(correctAnswer,computerAnswer, whoStart, numberDice);
+
+		}
+		else{
+			for(let i = 0; i < numberDice; i++ ){
+				
+				yourAnswer[i] = rollDice(diceSides);
+
+			}
+			isCorrectUser = compareDice(correctAnswer,yourAnswer, whoStart, numberDice);
+
+		}
+		whoStart++;
+	} while(isCorrectUser != true && isCorrectComputer != true);
+
+	do{
+		userInput = prompt("Round three is over. Type begin to start round four!");
+	}while(userInput.toUpperCase() != "BEGIN");
+
+	whoStart -= 1;
+
+	beginRound4(whoStart);
 }
 
 function beginRound4(whoStart){
@@ -158,6 +208,10 @@ function beginRound5(whoStart){
 }
 
 function beginRound6(whoStart){
+
+}
+
+function beginPig(whoStart){
 
 }
 
