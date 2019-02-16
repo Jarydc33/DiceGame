@@ -51,8 +51,62 @@ function beginRound1(whoStart){
 
 	tempScore *= 2;
 	if(numRound == 0){
-		console.log("In this round, your goal will be to get a straight. You will need to get 1, 2, 3, and 4 in any order. You will be playing with 4 four-sided dice.")
+		console.log("In this round, your goal will be to get a straight. You will need to get 1, 2, 3, and 4 in any order. You will be playing with 4 four-sided dice.");
 		tempScore = 100; numRound++;
+	}
+
+		do{
+			userInput = prompt("Type roll when you are ready!");
+	}while(userInput.toUpperCase() != "ROLL");
+
+	do{
+		if(whoStart % 2 != 0){
+
+			for(let i = 0; i < numberDice; i++ ){
+				
+				computerAnswer[i] = rollDice(diceSides);
+
+			}
+			isCorrectComputer = compareDice(correctAnswer,computerAnswer, whoStart, numberDice);
+
+		}
+		else{
+			for(let i = 0; i < numberDice; i++ ){
+				
+				yourAnswer[i] = rollDice(diceSides);
+
+			}
+			isCorrectUser = compareDice(correctAnswer,yourAnswer, whoStart, numberDice);
+
+		}
+		whoStart++;
+	} while(isCorrectUser != true && isCorrectComputer != true);
+
+	do{
+		userInput = prompt("Round one is over. Type begin to start round two!");
+	}while(userInput.toUpperCase() != "BEGIN");
+
+	whoStart -= 1;
+
+	beginRound2(whoStart);
+}
+
+function beginRound2(whoStart){
+
+	let diceSides = 6;
+	let numberDice = 5;
+	let correctAnswer = [2,2,3,3,3];
+	let computerAnswer = [];
+	let yourAnswer = [];
+	let isCorrectComputer;
+	let isCorrectUser;
+	let userInput;
+
+	tempScore *= 2;
+	if(numRound == 1){
+		console.log("Round 2");
+		console.log("In round two, your goal will be to get a full house - threes over twos. You will need to get three threes and two twos in any order. You will be playing with 5 six-sided dice.");
+		tempScore = 200; numRound++;
 	}
 
 		do{
@@ -67,7 +121,7 @@ function beginRound1(whoStart){
 				computerAnswer[i] = rollDice(diceSides);
 
 			}
-			isCorrectComputer = compareDice(correctAnswer,computerAnswer, whoStart);
+			isCorrectComputer = compareDice(correctAnswer,computerAnswer, whoStart, numberDice);
 
 		}
 		else{
@@ -76,27 +130,38 @@ function beginRound1(whoStart){
 				yourAnswer[i] = rollDice(diceSides);
 
 			}
-			isCorrectUser = compareDice(correctAnswer,yourAnswer, whoStart);
+			isCorrectUser = compareDice(correctAnswer,yourAnswer, whoStart, numberDice);
 
 		}
 		whoStart++;
 	} while(isCorrectUser != true && isCorrectComputer != true);
 
 	do{
-		userInput = prompt("Round one is over. Type begin to start round two!");
+		userInput = prompt("Round two is over. Type begin to start round three!");
 	}while(userInput.toUpperCase() != "BEGIN");
 
-	beginRound2(whoStart);
+	whoStart -= 1;
+
+	beginRound3(whoStart);
 }
 
-function beginRound2(){
-console.log("Round 2");
-return true;
+function beginRound3(whoStart){
 
 }
 
+function beginRound4(whoStart){
 
-function compareDice(correct, potential, whoStart){
+}
+
+function beginRound5(whoStart){
+
+}
+
+function beginRound6(whoStart){
+
+}
+
+function compareDice(correct, potential, whoStart, number){
 
 	let check = 0;
 	let isCorrect;
@@ -119,7 +184,7 @@ function compareDice(correct, potential, whoStart){
 
 		if(numRound == currentRound){
 			currentRound++;
-			if(check == 4){
+			if(check == number){
 				console.log("The computer won and has been awarded " + tempScore + " points. Does he want to double down?")
 				console.log(potential);
 				doubleDown = Math.ceil(Math.random() * 3);
@@ -127,7 +192,24 @@ function compareDice(correct, potential, whoStart){
 				if(doubleDown == 1){
 
 					console.log("The computer has chosen to roll again!")
-					beginRound1(1);
+					if(currentRound == 2){
+						beginRound1(1);
+					}
+					else if(currentRound == 3){
+						beginRound2(1);
+					}
+					else if(currentRound == 4){
+						beginRound3(1);
+					}
+					else if(currentRound == 5){
+						beginRound4(1);
+					}
+					else if(currentRound == 6){
+						beginRound5(1);
+					}
+					else{
+						beginRound6(1);
+					}
 
 				}
 				else{
@@ -159,7 +241,7 @@ function compareDice(correct, potential, whoStart){
 
 		if(numRound == currentRound){
 			currentRound++;
-			if(check == 4){
+			if(check == number){
 				console.log("You won round one and are awarded " + tempScore +" points! Do you want to double down?");
 				console.log(potential);
 
@@ -170,7 +252,25 @@ function compareDice(correct, potential, whoStart){
 				if(userInput.toUpperCase() == "ROLL"){
 
 					console.log("Let`s play the round again!");
-					beginRound1(2);
+
+						if(currentRound == 2){
+							beginRound1(1);
+						}
+						else if(currentRound == 3){
+							beginRound2(1);
+						}
+						else if(currentRound == 4){
+							beginRound3(1);
+						}
+						else if(currentRound == 5){
+							beginRound4(1);
+						}
+						else if(currentRound == 6){
+							beginRound5(1);
+						}
+						else{
+							beginRound6(1);
+						}
 
 				}
 				else{
