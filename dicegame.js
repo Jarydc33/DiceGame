@@ -412,9 +412,11 @@ function beginPig(whoStart){
 
 		console.log("After round " + round + "  of Pig, your score is: " + userScore + " and the computer`s score is: " + computerScore + ".");
 
-		do{
-			userInput = prompt("Type roll to begin the next round of Pig");
-		}while(userInput.toUpperCase() != "ROLL");
+		if(computerScore < 100 && userScore < 100){
+			do{
+				userInput = prompt("Type roll to begin the next round of Pig");
+			}while(userInput.toUpperCase() != "ROLL");
+		}
 
 		round++;
 
@@ -474,11 +476,6 @@ function beginPig(whoStart){
 
 }
 
-function comparePig(userDice, computerDice){
-
-
-}
-
 function compareDice(correct, potential, whoStart, number){
 
 	let check = 0;
@@ -505,8 +502,12 @@ function compareDice(correct, potential, whoStart, number){
 			if(check == number){
 				console.log("The computer won and has been awarded " + tempScore + " points. Does he want to double down?")
 				console.log(potential);
-				doubleDown = Math.ceil(Math.random() * 3);
 
+				doubleDown = Math.ceil(Math.random() * 3);
+				
+				if(userScore > computerScore && numRound == 5){
+					doubleDown = 1;
+				}
 				if(doubleDown == 1){
 
 					console.log("The computer has chosen chance his luck on a double down!")
