@@ -160,7 +160,7 @@ function beginRound3(whoStart){
 	if(numRound == 2){
 		console.log("Round 3");
 		console.log("In round three, your goal will be to get three sets of three of a kind - ones and eights. You will be playing with 6 eight-sided dice.");
-		tempScore = 200; numRound++;
+		tempScore = 300; numRound++;
 	}
 
 		do{
@@ -201,6 +201,56 @@ function beginRound3(whoStart){
 
 function beginRound4(whoStart){
 
+	let diceSides = 10;
+	let numberDice = 7;
+	let correctAnswer = [2,3,4,5,6,7,10];
+	let computerAnswer = [];
+	let yourAnswer = [];
+	let isCorrectComputer;
+	let isCorrectUser;
+	let userInput;
+
+	tempScore *= 2;
+	if(numRound == 3){
+		console.log("Round 4");
+		console.log("In round four, your goal will be to get a straight of 2, 3, 4, 5, 6, and 7 and also the number 10. You will be playing with 7 ten-sided dice.");
+		tempScore = 400; numRound++;
+	}
+
+		do{
+			userInput = prompt("Type roll when you are ready!")
+	}while(userInput.toUpperCase() != "ROLL");
+
+	do{
+		if(whoStart % 2 != 0){
+
+			for(let i = 0; i < numberDice; i++ ){
+				
+				computerAnswer[i] = rollDice(diceSides);
+
+			}
+			isCorrectComputer = compareDice(correctAnswer,computerAnswer, whoStart, numberDice);
+
+		}
+		else{
+			for(let i = 0; i < numberDice; i++ ){
+				
+				yourAnswer[i] = rollDice(diceSides);
+
+			}
+			isCorrectUser = compareDice(correctAnswer,yourAnswer, whoStart, numberDice);
+
+		}
+		whoStart++;
+	} while(isCorrectUser != true && isCorrectComputer != true);
+
+	do{
+		userInput = prompt("Round four is over. Type begin to start round five!");
+	}while(userInput.toUpperCase() != "BEGIN");
+
+	whoStart -= 1;
+
+	beginRound5(whoStart);
 }
 
 function beginRound5(whoStart){
@@ -331,7 +381,7 @@ function compareDice(correct, potential, whoStart, number){
 
 					console.log("Let`s begin the next round!");
 					scoreKeeper(tempScore,2);
-					return 2;
+					return true;
 				}
 			}
 		}
