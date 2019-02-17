@@ -36,6 +36,7 @@ function startGame(){
 	beginRound1(firstRoll);
 }
 //user will always be 2 (even) and computer will always be 1 (odd). 
+//Changes: only press enter, computer will always double down on last round if behind in score.
 function beginRound1(whoStart){
 
 	
@@ -256,8 +257,8 @@ function beginRound4(whoStart){
 function beginRound5(whoStart){
 
 	let diceSides = 12;
-	let numberDice = 6;
-	let correctAnswer = [12,12,12,12,12,12];
+	let numberDice = 4;
+	let correctAnswer = [12,12,12,12];
 	let computerAnswer = [];
 	let yourAnswer = [];
 	let isCorrectComputer;
@@ -267,7 +268,7 @@ function beginRound5(whoStart){
 	tempScore *= 2;
 	if(numRound == 4){
 		console.log("Round 5");
-		console.log("In round five, your goal will be to get six 12`s. You will be playing with 6 twelve-sided dice.");
+		console.log("In round five, your goal will be to get four 12`s. You will be playing with 4 twelve-sided dice.");
 		tempScore = 500; numRound++;
 	}
 
@@ -355,22 +356,126 @@ function beginRound6(whoStart){
 	if(computerScore > userScore){
 
 		console.log("The final round is over and the computer had the higher score of: " + computerScore + ". Because of this, the computer will be playing Pig with more dice.");
+		whoStart = 1;
 	}
 	else{
 
 		console.log("The final round is over and you had a higher final score of: " + userScore + ". Because of this, you will be playing Pig with more dice.");
+		whoStart = 2;
 	}
 
 	do{
 		userInput = prompt("Type begin to start a game of Pig to determine the winner of the game.");
 	}while(userInput.toUpperCase() != "BEGIN");
 
-	whoStart -= 1;
-
 	beginPig(whoStart);
 }
 
 function beginPig(whoStart){
+
+	let userInput;
+	let diceSides = 6;
+	computerScore = 0;
+	userScore = 0;
+	let computerDice;
+	let userDice;
+	let round = 1;
+
+
+	console.log("Welcome to Pig! This round will determine the winner. The winner of the first six rounds will be allowed to use 6 dice to play while the loser will only be allowed to use four. First to 100 points is the winner! Good luck!");
+
+	if(whoStart == 1){
+		userDice = 4;
+		computerDice = 6;
+	}
+	else{
+		userDice = 6;
+		computerDice = 4;
+	}
+
+	do{
+		userInput = prompt("Type roll when you are ready!")
+	}while(userInput.toUpperCase() != "ROLL");
+
+	do{
+
+		for(let i = 0; i < computerDice; i++ ){
+				
+			computerScore += rollDice(diceSides);
+
+		}
+		for(let i = 0; i < userDice; i++ ){
+				
+			userScore += rollDice(diceSides);
+
+		}
+
+		console.log("After round " + round + "  of Pig, your score is: " + userScore + " and the computer`s score is: " + computerScore + ".");
+
+		do{
+			userInput = prompt("Type roll to begin the next round of Pig");
+		}while(userInput.toUpperCase() != "ROLL");
+
+		round++;
+
+	} while(computerScore < 100 && userScore < 100);
+
+	if(computerScore > userScore){
+
+		console.log("Unfortunately, the computer has won the game...would you like to play again?")
+
+		do{
+			userInput = prompt("Type yes to play again or no to exit the game.")
+		}while(userInput.toUpperCase() != "YES" && userInput.toUpperCase() != "NO");
+
+		if(userInput.toUpperCase() == "YES"){
+
+			console.log("Beginning new game now.");
+
+			userScore = 0;
+			computerScore = 0;
+			tempScore = 0;
+			numRound = 0;
+			currentRound = 1;
+
+			startGame();
+		}
+		else{
+			console.log("Thanks for playing!");
+			debugger;
+		}
+
+	}
+	else{
+
+		console.log("Congrats! You won the game!")
+
+		do{
+			userInput = prompt("Type yes to play again or no to exit the game.")
+		}while(userInput.toUpperCase() != "YES" && userInput.toUpperCase() != "NO");
+
+		if(userInput.toUpperCase() == "YES"){
+
+			console.log("Beginning new game now.");
+
+			userScore = 0;
+			computerScore = 0;
+			tempScore = 0;
+			numRound = 0;
+			currentRound = 1;
+
+			startGame();
+		}
+		else{
+			console.log("Thanks for playing!");
+			debugger;
+		}
+	}
+
+}
+
+function comparePig(userDice, computerDice){
+
 
 }
 
@@ -455,7 +560,7 @@ function compareDice(correct, potential, whoStart, number){
 		if(numRound == currentRound){
 			currentRound++;
 			if(check == number){
-				console.log("You won round one and are awarded " + tempScore +" points! Do you want to double down?");
+				console.log("You won the round and are awarded " + tempScore +" points! Do you want to double down?");
 				console.log(potential);
 
 				do{
