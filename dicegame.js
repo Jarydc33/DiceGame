@@ -159,7 +159,7 @@ function beginRound3(whoStart){
 	tempScore *= 2;
 	if(numRound == 2){
 		console.log("Round 3");
-		console.log("In round three, your goal will be to get three sets of three of a kind - ones and eights. You will be playing with 6 eight-sided dice.");
+		console.log("In round three, your goal will be to get two sets of three of a kind - ones and eights. You will be playing with 6 eight-sided dice.");
 		tempScore = 300; numRound++;
 	}
 
@@ -255,10 +255,119 @@ function beginRound4(whoStart){
 
 function beginRound5(whoStart){
 
+	let diceSides = 12;
+	let numberDice = 6;
+	let correctAnswer = [12,12,12,12,12,12];
+	let computerAnswer = [];
+	let yourAnswer = [];
+	let isCorrectComputer;
+	let isCorrectUser;
+	let userInput;
+
+	tempScore *= 2;
+	if(numRound == 4){
+		console.log("Round 5");
+		console.log("In round five, your goal will be to get six 12`s. You will be playing with 6 twelve-sided dice.");
+		tempScore = 500; numRound++;
+	}
+
+		do{
+			userInput = prompt("Type roll when you are ready!")
+	}while(userInput.toUpperCase() != "ROLL");
+
+	do{
+		if(whoStart % 2 != 0){
+
+			for(let i = 0; i < numberDice; i++ ){
+				
+				computerAnswer[i] = rollDice(diceSides);
+
+			}
+			isCorrectComputer = compareDice(correctAnswer,computerAnswer, whoStart, numberDice);
+
+		}
+		else{
+			for(let i = 0; i < numberDice; i++ ){
+				
+				yourAnswer[i] = rollDice(diceSides);
+
+			}
+			isCorrectUser = compareDice(correctAnswer,yourAnswer, whoStart, numberDice);
+
+		}
+		whoStart++;
+	} while(isCorrectUser != true && isCorrectComputer != true);
+
+	do{
+		userInput = prompt("Round five is over. Type begin to start round six!");
+	}while(userInput.toUpperCase() != "BEGIN");
+
+	whoStart -= 1;
+
+	beginRound6(whoStart);
 }
 
 function beginRound6(whoStart){
 
+	let diceSides = 20;
+	let numberDice = 1;
+	let correctAnswer = [20];
+	let computerAnswer = [];
+	let yourAnswer = [];
+	let isCorrectComputer;
+	let isCorrectUser;
+	let userInput;
+
+	tempScore *= 2;
+	if(numRound == 5){
+		console.log("Round 5");
+		console.log("Welcome to the final round! Your goal in the final round will be to get a single 20 using one 20-sided dice.");
+		tempScore = 600; numRound++;
+	}
+
+		do{
+			userInput = prompt("Type roll when you are ready!")
+	}while(userInput.toUpperCase() != "ROLL");
+
+	do{
+		if(whoStart % 2 != 0){
+
+			for(let i = 0; i < numberDice; i++ ){
+				
+				computerAnswer[i] = rollDice(diceSides);
+
+			}
+			isCorrectComputer = compareDice(correctAnswer,computerAnswer, whoStart, numberDice);
+
+		}
+		else{
+			for(let i = 0; i < numberDice; i++ ){
+				
+				yourAnswer[i] = rollDice(diceSides);
+
+			}
+			isCorrectUser = compareDice(correctAnswer,yourAnswer, whoStart, numberDice);
+
+		}
+		whoStart++;
+	} while(isCorrectUser != true && isCorrectComputer != true);
+
+	if(computerScore > userScore){
+
+		console.log("The final round is over and the computer had the higher score of: " + computerScore + ". Because of this, the computer will be playing Pig with more dice.");
+	}
+	else{
+
+		console.log("The final round is over and you had a higher final score of: " + userScore + ". Because of this, you will be playing Pig with more dice.");
+	}
+
+	do{
+		userInput = prompt("Type begin to start a game of Pig to determine the winner of the game.");
+	}while(userInput.toUpperCase() != "BEGIN");
+
+	whoStart -= 1;
+
+	beginPig(whoStart);
 }
 
 function beginPig(whoStart){
@@ -295,7 +404,7 @@ function compareDice(correct, potential, whoStart, number){
 
 				if(doubleDown == 1){
 
-					console.log("The computer has chosen to roll again!")
+					console.log("The computer has chosen chance his luck on a double down!")
 					if(currentRound == 2){
 						beginRound1(1);
 					}
@@ -350,7 +459,7 @@ function compareDice(correct, potential, whoStart, number){
 				console.log(potential);
 
 				do{
-					userInput = prompt("Type roll to roll again. Otherwise type no to begin next round!");
+					userInput = prompt("Type roll to try the double down round, otherwise type no to begin next round!");
 				} while(userInput.toUpperCase() != "ROLL" && userInput.toUpperCase() != "NO");
 
 				if(userInput.toUpperCase() == "ROLL"){
