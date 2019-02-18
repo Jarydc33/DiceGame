@@ -11,6 +11,7 @@ body{
 	width:100%;
 	height: 100px;
 	background-color: black;
+	color:green;
 
 }
 
@@ -25,16 +26,35 @@ body{
 	box-shadow: 10px 10px 10px #ccc;
 	border: solid 1px #666666;
 	color:green;
+	text-align: right;
 	
+}
+
+#gameScreenText{
+
+	position: absolute;
+	top:40%;
+	right:38%;
+	text-align: center;
+	color:green;
 
 }
 
 #buttons{
+
 	position:absolute;
 	right: 47%;
 	top:60%;
 	margin: 5px;
 	cursor: pointer;
 
+
+}
+
+#rollButton{
+
+}
+
+#beginButton{
 
 }

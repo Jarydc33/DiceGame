@@ -5,38 +5,36 @@ let tempScore = 0;
 let numRound = 0;
 let currentRound = 1;
 
-startGame();
+document.getElementById("gameScreenText").innerHTML = "Welcome to the game! Press roll below to see who will go first!";
+
+document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+
+document.getElementById("rollButton").onclick = function(){ startGame(); }
 
 function startGame(){
 
-	//let currentLevel = [4, 6, 8, 10, 12, 20];
-
-	console.log("Let`s begin! We will roll to see who will go first." );
-	//initialRoll();
 	let userInput;
 	let firstRoll;
+	let test;
 
-	if(initialRoll(true)){
+	test = initialRoll();
 
-		console.log("The computer won the roll and will begin the first round.")
+	if(test == true){
+
+		document.getElementById("gameScreenText").innerHTML = "The computer won the roll and will begin the first round.";
 		firstRoll = 1;
 	}
 
 	else{
 
-		console.log("You won the roll and will begin the first round.")
+		document.getElementById("gameScreenText").innerHTML = "You won the roll and will begin the first round.";
 		firstRoll = 2;
 	}
 
-
-	do{
-		userInput = prompt("Type begin to start the game!")
-	}while(userInput.toUpperCase() != "BEGIN");
-
-	beginRound1(firstRoll);
+	//beginRound1(firstRoll);
 }
 //user will always be 2 (even) and computer will always be 1 (odd). 
-//Changes: only press enter, computer will always double down on last round if behind in score.
+
 function beginRound1(whoStart){
 
 	
@@ -82,6 +80,8 @@ function beginRound1(whoStart){
 		}
 		whoStart++;
 	} while(isCorrectUser != true && isCorrectComputer != true);
+
+	document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
 
 	do{
 		userInput = prompt("Round one is over. Type begin to start round two!");
@@ -137,6 +137,8 @@ function beginRound2(whoStart){
 		whoStart++;
 	} while(isCorrectUser != true && isCorrectComputer != true);
 
+	document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+
 	do{
 		userInput = prompt("Round two is over. Type begin to start round three!");
 	}while(userInput.toUpperCase() != "BEGIN");
@@ -190,6 +192,8 @@ function beginRound3(whoStart){
 		}
 		whoStart++;
 	} while(isCorrectUser != true && isCorrectComputer != true);
+
+	document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
 
 	do{
 		userInput = prompt("Round three is over. Type begin to start round four!");
@@ -245,6 +249,8 @@ function beginRound4(whoStart){
 		whoStart++;
 	} while(isCorrectUser != true && isCorrectComputer != true);
 
+	document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+
 	do{
 		userInput = prompt("Round four is over. Type begin to start round five!");
 	}while(userInput.toUpperCase() != "BEGIN");
@@ -298,6 +304,8 @@ function beginRound5(whoStart){
 		}
 		whoStart++;
 	} while(isCorrectUser != true && isCorrectComputer != true);
+
+	document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
 
 	do{
 		userInput = prompt("Round five is over. Type begin to start round six!");
@@ -353,6 +361,8 @@ function beginRound6(whoStart){
 		whoStart++;
 	} while(isCorrectUser != true && isCorrectComputer != true);
 
+	document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+
 	if(computerScore > userScore){
 
 		console.log("The final round is over and the computer had the higher score of: " + computerScore + ". Because of this, the computer will be playing Pig with more dice.");
@@ -381,7 +391,7 @@ function beginPig(whoStart){
 	let userDice;
 	let round = 1;
 
-
+	document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
 	console.log("Welcome to Pig! This round will determine the winner. The winner of the first six rounds will be allowed to use 6 dice to play while the loser will only be allowed to use four. First to 100 points is the winner! Good luck!");
 
 	if(whoStart == 1){
@@ -410,7 +420,7 @@ function beginPig(whoStart){
 
 		}
 
-		console.log("After round " + round + "  of Pig, your score is: " + userScore + " and the computer`s score is: " + computerScore + ".");
+		document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
 
 		if(computerScore < 100 && userScore < 100){
 			do{
@@ -504,7 +514,7 @@ function compareDice(correct, potential, whoStart, number){
 				console.log(potential);
 
 				doubleDown = Math.ceil(Math.random() * 3);
-				
+
 				if(userScore > computerScore && numRound == 5){
 					doubleDown = 1;
 				}
@@ -645,4 +655,9 @@ function scoreKeeper(scoreUpdate, whichScore){
 		console.log("Your score is: " + userScore + " and the computer`s score is: " + computerScore);
 		return userScore;
 	}
+}
+
+function clicker(){
+
+	return true;
 }
