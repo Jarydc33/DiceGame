@@ -1,9 +1,10 @@
-
+//user will always be 2 (even) and computer will always be 1 (odd).
 let userScore = 0;
 let computerScore = 0;
 let tempScore = 0;
 let numRound = 0;
 let currentRound = 1;
+let buttonNum = 0;
 
 document.getElementById("gameScreenText").innerHTML = "Welcome to the game! Press roll below to see who will go first!";
 
@@ -14,30 +15,33 @@ document.getElementById("rollButton").onclick = function(){ startGame(); }
 function startGame(){
 
 	let userInput;
-	let firstRoll;
 	let test;
+	let firstRoll;
 
 	test = initialRoll();
 
 	if(test == true){
 
-		document.getElementById("gameScreenText").innerHTML = "The computer won the roll and will begin the first round.";
+		document.getElementById("gameScreenText").innerHTML = "The computer won the roll and will begin the first round." 
+		+"<br /> The goal of round 1 is to get a straight of 1,2,3,4." 
+		+ "<br /> Press begin to start the game.";
+		
 		firstRoll = 1;
 	}
 
 	else{
 
-		document.getElementById("gameScreenText").innerHTML = "You won the roll and will begin the first round.";
+		document.getElementById("gameScreenText").innerHTML = "You won the roll and will begin the first round." 
+		+"<br /> The goal of round 1 is to get a straight of 1,2,3,4." 
+		+ "<br /> Press begin to start the game.";
+		
 		firstRoll = 2;
 	}
 
-	//beginRound1(firstRoll);
-}
-//user will always be 2 (even) and computer will always be 1 (odd). 
+	document.getElementById("beginButton").onclick = function(){ beginRound1(firstRoll); }
+} 
 
 function beginRound1(whoStart){
-
-	
 
 	let diceSides = 4;
 	let numberDice = 4;
@@ -50,46 +54,46 @@ function beginRound1(whoStart){
 
 	tempScore *= 2;
 	if(numRound == 0){
-		console.log("In this round, your goal will be to get a straight. You will need to get 1, 2, 3, and 4 in any order. You will be playing with 4 four-sided dice.");
+		
 		tempScore = 100; numRound++;
-	}
+
+		if(buttonNum != 0){
+			tempScore = 200;
+		}
 
 		do{
-			userInput = prompt("Type roll when you are ready!");
-	}while(userInput.toUpperCase() != "ROLL");
+			if(whoStart % 2 != 0){
 
-	do{
-		if(whoStart % 2 != 0){
+				for(let i = 0; i < numberDice; i++ ){
+					
+					computerAnswer[i] = rollDice(diceSides);
 
-			for(let i = 0; i < numberDice; i++ ){
-				
-				computerAnswer[i] = rollDice(diceSides);
-
-			}
-			isCorrectComputer = compareDice(correctAnswer,computerAnswer, whoStart, numberDice);
-
-		}
-		else{
-			for(let i = 0; i < numberDice; i++ ){
-				
-				yourAnswer[i] = rollDice(diceSides);
+				}
+				isCorrectComputer = compareDice(correctAnswer,computerAnswer, whoStart, numberDice);
 
 			}
-			isCorrectUser = compareDice(correctAnswer,yourAnswer, whoStart, numberDice);
+			else{
+				for(let i = 0; i < numberDice; i++ ){
+					
+					yourAnswer[i] = rollDice(diceSides);
 
-		}
-		whoStart++;
-	} while(isCorrectUser != true && isCorrectComputer != true);
+				}
+				isCorrectUser = compareDice(correctAnswer,yourAnswer, whoStart, numberDice);
 
-	document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
-
-	do{
-		userInput = prompt("Round one is over. Type begin to start round two!");
-	}while(userInput.toUpperCase() != "BEGIN");
-
+			}
+			whoStart++;
+		} while(isCorrectUser != true && isCorrectComputer != true);
+	}
 	whoStart -= 1;
 
-	beginRound2(whoStart);
+	if(buttonNum == 0){
+
+		document.getElementById("rollButton").onclick = function(){ numRound--; buttonNum++; beginRound1(whoStart); return; }
+		document.getElementById("beginButton").onclick = function(){ scoreKeeper(tempScore, 2);beginRound2(whoStart); return;}
+	}
+	else{
+		document.getElementById("beginButton").onclick = function(){ beginRound2(whoStart); }
+	}
 }
 
 function beginRound2(whoStart){
@@ -508,9 +512,11 @@ function compareDice(correct, potential, whoStart, number){
 		}
 
 		if(numRound == currentRound){
+
 			currentRound++;
+
 			if(check == number){
-				console.log("The computer won and has been awarded " + tempScore + " points. Does he want to double down?")
+	
 				console.log(potential);
 
 				doubleDown = Math.ceil(Math.random() * 3);
@@ -520,30 +526,15 @@ function compareDice(correct, potential, whoStart, number){
 				}
 				if(doubleDown == 1){
 
-					console.log("The computer has chosen chance his luck on a double down!")
-					if(currentRound == 2){
-						beginRound1(1);
-					}
-					else if(currentRound == 3){
-						beginRound2(1);
-					}
-					else if(currentRound == 4){
-						beginRound3(1);
-					}
-					else if(currentRound == 5){
-						beginRound4(1);
-					}
-					else if(currentRound == 6){
-						beginRound5(1);
-					}
-					else{
-						beginRound6(1);
-					}
+					document.getElementById("gameScreenText").innerHTML = "The computer won the round with " + potential 
+					+ " and decided to try his luck on a double down!";
 
+					beginRound1(whoStart);
 				}
 				else{
 
-					console.log("The computer has decided to keep his points and begin the next round!");
+					document.getElementById("gameScreenText").innerHTML = "The computer won the round with " + potential 
+					+ " and decided to keep his points and begin the next round.";
 					scoreKeeper(tempScore, 1);
 					return true;
 				}
@@ -551,7 +542,8 @@ function compareDice(correct, potential, whoStart, number){
 			}
 		}
 		else{
-			console.log("The computer won the double down round and we will now begin the next round.");
+			document.getElementById("gameScreenText").innerHTML = "The computer has won the double down round!";
+			document.getElementById("gameScreenText2").innerHTML = "Press begin to start the next round!";
 			scoreKeeper(tempScore,1);
 			return true;
 		}
@@ -571,47 +563,15 @@ function compareDice(correct, potential, whoStart, number){
 		if(numRound == currentRound){
 			currentRound++;
 			if(check == number){
-				console.log("You won the round and are awarded " + tempScore +" points! Do you want to double down?");
-				console.log(potential);
+				document.getElementById("gameScreenText").innerHTML = "You won the round with " + potential + "! Would you like to try the double down round? " 
+				+ "<br /> Press roll to play or begin to start the next round.";
 
-				do{
-					userInput = prompt("Type roll to try the double down round, otherwise type no to begin next round!");
-				} while(userInput.toUpperCase() != "ROLL" && userInput.toUpperCase() != "NO");
-
-				if(userInput.toUpperCase() == "ROLL"){
-
-					console.log("Let`s play the round again!");
-
-						if(currentRound == 2){
-							beginRound1(1);
-						}
-						else if(currentRound == 3){
-							beginRound2(1);
-						}
-						else if(currentRound == 4){
-							beginRound3(1);
-						}
-						else if(currentRound == 5){
-							beginRound4(1);
-						}
-						else if(currentRound == 6){
-							beginRound5(1);
-						}
-						else{
-							beginRound6(1);
-						}
-
-				}
-				else{
-
-					console.log("Let`s begin the next round!");
-					scoreKeeper(tempScore,2);
-					return true;
-				}
+				return true;
 			}
 		}
 		else{
-			console.log("You won the double down round and we will now begin the next round!");
+			document.getElementById("gameScreenText").innerHTML = "You won the double down round!";
+			document.getElementById("gameScreenText2").innerHTML = "Press begin to start the next round!";
 			scoreKeeper(tempScore,2);
 			return true;
 		}
@@ -644,20 +604,16 @@ function rollDice(numberOfSides){
 function scoreKeeper(scoreUpdate, whichScore){
 
 	if(whichScore == 1){
-		let i;
+
 		computerScore += scoreUpdate
-		console.log("Computer score is: " + computerScore + " and your score is: " + userScore + " .");
-		return computerScore;
+		document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+
+		// return computerScore;
 	}
 	else if(whichScore == 2){
 
 		userScore +=scoreUpdate;
-		console.log("Your score is: " + userScore + " and the computer`s score is: " + computerScore);
-		return userScore;
+		document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+		// return userScore;
 	}
-}
-
-function clicker(){
-
-	return true;
 }

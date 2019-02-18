@@ -37,8 +37,23 @@ body{
 	right:38%;
 	text-align: center;
 	color:green;
-
 }
+
+#gameScreenText2{
+
+	position: absolute;
+	top: 50%;
+	right:38%;
+	color:green;
+}
+
+/*#gameScreenTextHeader{
+	position: absolute;
+	top:25%;
+	right:38%;
+	text-align: center;
+	color:green;
+}*/
 
 #buttons{
 
