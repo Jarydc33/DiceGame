@@ -89,10 +89,11 @@ function beginRound1(whoStart){
 	if(buttonNum == 0){
 
 		document.getElementById("rollButton").onclick = function(){ numRound--; buttonNum++; beginRound1(whoStart);}
-		document.getElementById("beginButton").onclick = function(){ scoreKeeper(tempScore, 2);beginRound2(whoStart);}
+		document.getElementById("beginButton").onclick = function(){ scoreKeeper(tempScore, 2);buttonNum++; beginRound2(whoStart);}
 	}
 	else{
 		document.getElementById("beginButton").onclick = function(){ beginRound2(whoStart); }
+		document.getElementById("rollButton").onclick = function(){};
 	}
 }
 
@@ -518,7 +519,7 @@ function compareDice(correct, potential, whoStart, number){
 	
 				console.log(potential);
 
-				doubleDown = Math.ceil(Math.random() * 3);
+				doubleDown = Math.ceil(Math.random() * 1);
 
 				if(userScore > computerScore && numRound == 5){
 					doubleDown = 1;
