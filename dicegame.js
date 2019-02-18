@@ -88,8 +88,8 @@ function beginRound1(whoStart){
 
 	if(buttonNum == 0){
 
-		document.getElementById("rollButton").onclick = function(){ numRound--; buttonNum++; beginRound1(whoStart); return; }
-		document.getElementById("beginButton").onclick = function(){ scoreKeeper(tempScore, 2);beginRound2(whoStart); return;}
+		document.getElementById("rollButton").onclick = function(){ numRound--; buttonNum++; beginRound1(whoStart);}
+		document.getElementById("beginButton").onclick = function(){ scoreKeeper(tempScore, 2);beginRound2(whoStart);}
 	}
 	else{
 		document.getElementById("beginButton").onclick = function(){ beginRound2(whoStart); }
@@ -489,7 +489,6 @@ function beginPig(whoStart){
 	}
 
 }
-
 function compareDice(correct, potential, whoStart, number){
 
 	let check = 0;
@@ -529,22 +528,24 @@ function compareDice(correct, potential, whoStart, number){
 					document.getElementById("gameScreenText").innerHTML = "The computer won the round with " + potential 
 					+ " and decided to try his luck on a double down!";
 
-					beginRound1(whoStart);
+					 beginRound1(whoStart);
 				}
 				else{
 
 					document.getElementById("gameScreenText").innerHTML = "The computer won the round with " + potential 
 					+ " and decided to keep his points and begin the next round.";
 					scoreKeeper(tempScore, 1);
+					buttonNum++;
 					return true;
 				}
 				
 			}
 		}
 		else{
-			document.getElementById("gameScreenText").innerHTML = "The computer has won the double down round!";
-			document.getElementById("gameScreenText2").innerHTML = "Press begin to start the next round!";
+			document.getElementById("gameScreenText2").innerHTML = "The computer has won the double down round!" 
+			+ "<br /> Press begin to start the next round";
 			scoreKeeper(tempScore,1);
+			buttonNum++;
 			return true;
 		}
 	}
@@ -570,8 +571,9 @@ function compareDice(correct, potential, whoStart, number){
 			}
 		}
 		else{
-			document.getElementById("gameScreenText").innerHTML = "You won the double down round!";
-			document.getElementById("gameScreenText2").innerHTML = "Press begin to start the next round!";
+			document.getElementById("gameScreenText2").innerHTML = "You won the double down round!" 
+			+ "<br /> Press begin to start the next round";
+			buttonNum++;
 			scoreKeeper(tempScore,2);
 			return true;
 		}
