@@ -253,12 +253,7 @@ function beginRound4(whoStart){
 		document.getElementById("whichRound").innerHTML = "ROUND 4";
 		document.getElementById("roundRules").innerHTML = "The goal of round 4 is to get a straight of 2 through 7 and a single 10. You will be playing with seven 10-sided dice.";
 		document.getElementById("gameScreenText2").innerHTML = "";
-		document.getElementById("explodeButton").onclick = function(){
-			
-			document.getElementById("gameScreenText").innerHTML = "Congrats! You won the game!!!!!!!! Press begin to restart the game.";
-			document.getElementById("beginButton").onclick = function(){ startGame(); }
-			document.getElementById("rollButton").onclick = function(){};
-		}
+		document.getElementById("explodeButton").onclick = function(){document.getElementById("gameScreenText").innerHTML = "You`re a winner to me."};
 
 		tempScore = 400; numRound++;
 
@@ -410,9 +405,8 @@ function beginRound6(whoStart){
 			}
 			whoStart++;
 		} while(isCorrectUser != true && isCorrectComputer != true);
-		whoStart -= 1;
 	}
-	// whoStart -= 1;
+	whoStart -= 1;
 
 	if(buttonNum == 5){
 
@@ -430,6 +424,9 @@ function beginPig(whoStart){
 	document.getElementById("whichRound").innerHTML = "PIG";
 	document.getElementById("roundRules").innerHTML = "Welcome to PIG! This is the last and final round."
 	+ " In this round, your goal will be to the first one to get a score of 100.";
+
+	if(computerScore > userScore){whoStart = 1;}
+	else{whoStart = 2;}
 
 	let userInput;
 	let diceSides = 6;
