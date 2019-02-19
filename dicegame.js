@@ -14,6 +14,7 @@ document.getElementById("gameScreenText").innerHTML = "Welcome to the game! Pres
 
 document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
 
+
 document.getElementById("rollButton").onclick = function(){ startGame(); }
 
 
@@ -42,6 +43,7 @@ function startGame(){
 	}
 
 	document.getElementById("beginButton").onclick = function(){ beginRound1(firstRoll); }
+	document.getElementById("rollButton").onclick = function(){};
 } 
 
 function beginRound1(whoStart){
@@ -416,100 +418,136 @@ function beginPig(whoStart){
 	userScore = 0;
 	let computerDice;
 	let userDice;
-	let round = 1;
 
 	document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
-	console.log("Welcome to Pig! This round will determine the winner. The winner of the first six rounds will be allowed to use 6 dice to play while the loser will only be allowed to use four. First to 100 points is the winner! Good luck!");
 
-	if(whoStart == 1){
-		userDice = 4;
+	if(whoStart % 2 != 0){
+		userDice = 5;
 		computerDice = 6;
+		document.getElementById("gameScreenText").innerHTML = "The computer won the game and so he will be playing Pig with six dice and you will be playing with only five. Press roll to start the game.";
+		document.getElementById("gameScreenText2").innerHTML = "";
+
+		if(computerScore < 100 && userScore < 100){
+
+		document.getElementById("rollButton").onclick = function(){ 
+			for(let i = 0; i < computerDice; i++ ){
+				
+				computerScore += rollDice(diceSides);
+
+			}
+			for(let i = 0; i < userDice; i++ ){
+				
+				userScore += rollDice(diceSides);
+
+			}
+			document.getElementById("gameScreenText").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+			document.getElementById("gameScreen").innerHTML = "";
+			if(computerScore > 100 && userScore < 100){
+
+				document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+				document.getElementById("gameScreenText").innerHTML = "Darn! The computer has won the game! Press begin to play again!";
+
+				document.getElementById("rollButton").onclick = function(){};
+				document.getElementById("beginButton").onclick = function(){ 
+				userScore = 0;
+				computerScore = 0;
+				tempScore = 0;
+				numRound = 0;
+				currentRound = 1;
+				buttonNum = 0;
+				document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+				startGame(); 
+				}
+			}
+			else if(userScore >= 100){
+
+				document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+				document.getElementById("gameScreenText").innerHTML = "Congrats! You won the game! Press begin to play again!";
+
+				document.getElementById("rollButton").onclick = function(){};
+				document.getElementById("beginButton").onclick = function(){ 
+					userScore = 0;
+					computerScore = 0;
+					tempScore = 0;
+					numRound = 0;
+					currentRound = 1;
+					buttonNum = 0;
+					document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+					startGame(); 
+				}
+			}
+
+		}
+		document.getElementById("beginButton").onclick = function(){};
+
+	}
+	
 	}
 	else{
 		userDice = 6;
-		computerDice = 4;
-	}
-
-	do{
-		userInput = prompt("Type roll when you are ready!")
-	}while(userInput.toUpperCase() != "ROLL");
-
-	do{
-
-		for(let i = 0; i < computerDice; i++ ){
-				
-			computerScore += rollDice(diceSides);
-
-		}
-		for(let i = 0; i < userDice; i++ ){
-				
-			userScore += rollDice(diceSides);
-
-		}
-
-		document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+		computerDice = 5;
+		document.getElementById("gameScreenText").innerHTML = "You won the game and so you will be playing Pig with six dice and the computer will be playing with only five. Press roll to start the game.";
+		document.getElementById("gameScreenText2").innerHTML = "";
 
 		if(computerScore < 100 && userScore < 100){
-			do{
-				userInput = prompt("Type roll to begin the next round of Pig");
-			}while(userInput.toUpperCase() != "ROLL");
+
+		document.getElementById("rollButton").onclick = function(){ 
+			for(let i = 0; i < computerDice; i++ ){
+				
+				computerScore += rollDice(diceSides);
+
+			}
+			for(let i = 0; i < userDice; i++ ){
+				
+				userScore += rollDice(diceSides);
+
+			}
+			document.getElementById("gameScreenText").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+			document.getElementById("gameScreen").innerHTML = "";
+			if(computerScore > 100){
+
+				document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+				document.getElementById("gameScreenText").innerHTML = "Darn! The computer has won the game! Press begin to play again!";
+
+				document.getElementById("rollButton").onclick = function(){};
+				document.getElementById("beginButton").onclick = function(){ 
+				userScore = 0;
+				computerScore = 0;
+				tempScore = 0;
+				numRound = 0;
+				currentRound = 1;
+				buttonNum = 0;
+				document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+				startGame(); 
+				}
+			}
+			else if(userScore >= 100){
+
+				document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+				document.getElementById("gameScreenText").innerHTML = "Congrats! You won the game! Press begin to play again!";
+
+				document.getElementById("rollButton").onclick = function(){};
+				document.getElementById("beginButton").onclick = function(){ 
+					userScore = 0;
+					computerScore = 0;
+					tempScore = 0;
+					numRound = 0;
+					currentRound = 1;
+					buttonNum = 0;
+					document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+					startGame(); 
+				}
+			}
+
 		}
-
-		round++;
-
-	} while(computerScore < 100 && userScore < 100);
-
-	if(computerScore > userScore){
-
-		console.log("Unfortunately, the computer has won the game...would you like to play again?")
-
-		do{
-			userInput = prompt("Type yes to play again or no to exit the game.")
-		}while(userInput.toUpperCase() != "YES" && userInput.toUpperCase() != "NO");
-
-		if(userInput.toUpperCase() == "YES"){
-
-			console.log("Beginning new game now.");
-
-			userScore = 0;
-			computerScore = 0;
-			tempScore = 0;
-			numRound = 0;
-			currentRound = 1;
-
-			startGame();
-		}
-		else{
-			console.log("Thanks for playing!");
-			debugger;
-		}
+		document.getElementById("beginButton").onclick = function(){};
 
 	}
-	else{
 
-		console.log("Congrats! You won the game!")
+	document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
 
-		do{
-			userInput = prompt("Type yes to play again or no to exit the game.")
-		}while(userInput.toUpperCase() != "YES" && userInput.toUpperCase() != "NO");
-
-		if(userInput.toUpperCase() == "YES"){
-
-			console.log("Beginning new game now.");
-
-			userScore = 0;
-			computerScore = 0;
-			tempScore = 0;
-			numRound = 0;
-			currentRound = 1;
-
-			startGame();
-		}
-		else{
-			console.log("Thanks for playing!");
-			debugger;
-		}
 	}
+	
 
 }
 function compareDice(correct, potential, whoStart, number){
