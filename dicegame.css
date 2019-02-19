@@ -47,19 +47,6 @@ body{
 	color:green;
 }
 
-/*#gameScreenText{
-
-	text-align:center;
-	color:green;
-}
-
-#gameScreenText2{
-
-	
-	color:green;
-	margin-top:5%;
-}*/
-
 #roundRules{
 
 text-align: center;
@@ -76,12 +63,20 @@ text-align: center;
 	cursor:pointer;
 	margin-left:47%;
 	margin-top:15px;
-	margin-right:5px;
+	margin-right:13px;
 	box-shadow: 10px 10px 10px #5B5B5B;
 }
 
 #beginButton{
 	cursor:pointer;
+	box-shadow: 10px 10px 10px #5B5B5B;
+}
+
+#explodeButton{
+
+	cursor:not-allowed;
+	margin-left:47%;
+	margin-top:30px;
 	box-shadow: 10px 10px 10px #5B5B5B;
 }
 

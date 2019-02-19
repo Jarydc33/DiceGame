@@ -14,6 +14,12 @@ document.getElementById("gameScreenText").innerHTML = "Welcome to the game! Pres
 
 document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + " <br /> ";
 
+document.getElementById("explodeButton").onclick = function(){
+
+	document.getElementById("gameScreenText").innerHTML = "KABOOM! You blew up! Press begin to restart!";
+	document.getElementById("beginButton").onclick = function(){ startGame(); }
+	document.getElementById("rollButton").onclick = function(){};
+}
 
 document.getElementById("rollButton").onclick = function(){ startGame(); }
 
@@ -44,6 +50,7 @@ function startGame(){
 
 	document.getElementById("beginButton").onclick = function(){ beginRound1(firstRoll); }
 	document.getElementById("rollButton").onclick = function(){};
+	document.getElementById("explodeButton").onclick = function(){ document.getElementById("gameScreenText").innerHTML = "You`re safe this round...."}
 } 
 
 function beginRound1(whoStart){
@@ -59,6 +66,8 @@ function beginRound1(whoStart){
 
 	document.getElementById("whichRound").innerHTML = "ROUND 1";
 	document.getElementById("roundRules").innerHTML = "The goal of round 1 is to get a straight of 1,2,3,4. You will be playing with four 4-sided dice.";
+	document.getElementById("explodeButton").onclick = function(){document.getElementById("gameScreenText").innerHTML = "Dun dun dunnnn..nothing happened."};
+
 
 	tempScore *= 2;
 	if(numRound == 0){
@@ -122,6 +131,7 @@ function beginRound2(whoStart){
 		document.getElementById("whichRound").innerHTML = "ROUND 2";
 		document.getElementById("roundRules").innerHTML = "The goal of round 2 is to get a full house threes over twos (2,2,3,3,3). You will be playing with five 6-sided dice.";
 		document.getElementById("gameScreenText2").innerHTML = "";
+		document.getElementById("explodeButton").onclick = function(){};
 		
 		tempScore = 200; numRound++;
 
@@ -182,6 +192,7 @@ function beginRound3(whoStart){
 		document.getElementById("whichRound").innerHTML = "ROUND 3";
 		document.getElementById("roundRules").innerHTML = "The goal of round 3 is to get three-of-a-kind of ones and eights (1,1,1,8,8,8). You will be playing with six 8-sided dice.";
 		document.getElementById("gameScreenText2").innerHTML = "";
+		document.getElementById("explodeButton").onclick = function(){document.getElementById("gameScreenText").innerHTML = "Getting warmer...?"};
 
 		tempScore = 300; numRound++;
 
@@ -242,6 +253,12 @@ function beginRound4(whoStart){
 		document.getElementById("whichRound").innerHTML = "ROUND 4";
 		document.getElementById("roundRules").innerHTML = "The goal of round 4 is to get a straight of 2 through 7 and a single 10. You will be playing with seven 10-sided dice.";
 		document.getElementById("gameScreenText2").innerHTML = "";
+		document.getElementById("explodeButton").onclick = function(){
+			
+			document.getElementById("gameScreenText").innerHTML = "Congrats! You won the game!!!!!!!! Press begin to restart the game.";
+			document.getElementById("beginButton").onclick = function(){ startGame(); }
+			document.getElementById("rollButton").onclick = function(){};
+		}
 
 		tempScore = 400; numRound++;
 
@@ -302,6 +319,7 @@ function beginRound5(whoStart){
 		document.getElementById("whichRound").innerHTML = "ROUND 5";
 		document.getElementById("roundRules").innerHTML = "The goal of round 5 is to get four of a kind of 12s. You will be playing with four 12-sided dice.";
 		document.getElementById("gameScreenText2").innerHTML = "";
+		document.getElementById("explodeButton").onclick = function(){};
 
 
 		tempScore = 500; numRound++;
@@ -392,11 +410,12 @@ function beginRound6(whoStart){
 			}
 			whoStart++;
 		} while(isCorrectUser != true && isCorrectComputer != true);
+		whoStart -= 1;
 	}
-	whoStart -= 1;
+	// whoStart -= 1;
 
 	if(buttonNum == 5){
-		
+
 		document.getElementById("rollButton").onclick = function(){ numRound--; buttonNum++; beginRound6(whoStart);}
 		document.getElementById("beginButton").onclick = function(){ scoreKeeper(tempScore, 2);buttonNum++; beginPig(whoStart);}
 	}
@@ -690,4 +709,9 @@ function scoreKeeper(scoreUpdate, whichScore){
 		document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br /> ";
 		// return userScore;
 	}	
+}
+
+function explosion(){
+
+
 }
