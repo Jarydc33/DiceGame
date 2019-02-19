@@ -6,11 +6,16 @@ let numRound = 0;
 let currentRound = 1;
 let buttonNum = 0;
 
+document.getElementById("whichRound").innerHTML = "RULES";
+document.getElementById("roundRules").innerHTML = "Welcome to DoubleDown! The goal of the game is to beat the computer by rolling specific dice combinations."
++ " If you win the round by rolling the combination first you can choose to double down and try to double the round score. If you win the double down, your round score will double and we will move to the next round."
++ " However, if you lose the double down round, the opponent will get the double score for that round. Whoever has more points after round six will have an advantage when playing Pig to win the game. Good luck!";
 document.getElementById("gameScreenText").innerHTML = "Welcome to the game! Press roll below to see who will go first!";
 
 document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
 
 document.getElementById("rollButton").onclick = function(){ startGame(); }
+
 
 function startGame(){
 
@@ -23,7 +28,6 @@ function startGame(){
 	if(test == true){
 
 		document.getElementById("gameScreenText").innerHTML = "The computer won the roll and will begin the first round." 
-		+"<br /> The goal of round 1 is to get a straight of 1,2,3,4." 
 		+ "<br /> Press begin to start the game.";
 		
 		firstRoll = 1;
@@ -31,8 +35,7 @@ function startGame(){
 
 	else{
 
-		document.getElementById("gameScreenText").innerHTML = "You won the roll and will begin the first round." 
-		+"<br /> The goal of round 1 is to get a straight of 1,2,3,4." 
+		document.getElementById("gameScreenText").innerHTML = "You won the roll and will begin the first round."
 		+ "<br /> Press begin to start the game.";
 		
 		firstRoll = 2;
@@ -51,6 +54,9 @@ function beginRound1(whoStart){
 	let isCorrectComputer;
 	let isCorrectUser;
 	let userInput;
+
+	document.getElementById("whichRound").innerHTML = "ROUND 1";
+	document.getElementById("roundRules").innerHTML = "The goal of round 1 is to get a straight of 1,2,3,4. You will be playing with four 4-sided dice.";
 
 	tempScore *= 2;
 	if(numRound == 0){
@@ -108,10 +114,12 @@ function beginRound2(whoStart){
 	let isCorrectUser;
 	let userInput;
 
-	document.getElementById("gameScreenText2").innerHTML = "";
-
 	tempScore *= 2;
 	if(numRound == 1){
+
+		document.getElementById("whichRound").innerHTML = "ROUND 2";
+		document.getElementById("roundRules").innerHTML = "The goal of round 2 is to get a full house threes over twos (2,2,3,3,3). You will be playing with five 6-sided dice.";
+		document.getElementById("gameScreenText2").innerHTML = "";
 		
 		tempScore = 200; numRound++;
 
@@ -166,14 +174,13 @@ function beginRound3(whoStart){
 	let isCorrectUser;
 	let userInput;
 
-	document.getElementById("gameScreenText2").innerHTML = "";
-
 	tempScore *= 2;
 	if(numRound == 2){
-		if(buttonNum > 3){
-			buttonNum = 3;
-		}
 		
+		document.getElementById("whichRound").innerHTML = "ROUND 3";
+		document.getElementById("roundRules").innerHTML = "The goal of round 3 is to get three-of-a-kind of ones and eights (1,1,1,8,8,8). You will be playing with six 8-sided dice.";
+		document.getElementById("gameScreenText2").innerHTML = "";
+
 		tempScore = 300; numRound++;
 
 		if(buttonNum != 2){
@@ -229,47 +236,51 @@ function beginRound4(whoStart){
 
 	tempScore *= 2;
 	if(numRound == 3){
-		console.log("Round 4");
-		console.log("In round four, your goal will be to get a straight of 2, 3, 4, 5, 6, and 7 and also the number 10. You will be playing with 7 ten-sided dice.");
+		
+		document.getElementById("whichRound").innerHTML = "ROUND 4";
+		document.getElementById("roundRules").innerHTML = "The goal of round 4 is to get a straight of 2 through 7 and a single 10. You will be playing with seven 10-sided dice.";
+		document.getElementById("gameScreenText2").innerHTML = "";
+
 		tempScore = 400; numRound++;
-	}
+
+		if(buttonNum != 3){
+			tempScore = 800;
+		}
 
 		do{
-			userInput = prompt("Type roll when you are ready!")
-	}while(userInput.toUpperCase() != "ROLL");
+			if(whoStart % 2 != 0){
 
-	do{
-		if(whoStart % 2 != 0){
+				for(let i = 0; i < numberDice; i++ ){
+					
+					computerAnswer[i] = rollDice(diceSides);
 
-			for(let i = 0; i < numberDice; i++ ){
-				
-				computerAnswer[i] = rollDice(diceSides);
-
-			}
-			isCorrectComputer = compareDice(correctAnswer,computerAnswer, whoStart, numberDice);
-
-		}
-		else{
-			for(let i = 0; i < numberDice; i++ ){
-				
-				yourAnswer[i] = rollDice(diceSides);
+				}
+				isCorrectComputer = compareDice(correctAnswer,computerAnswer, whoStart, numberDice);
 
 			}
-			isCorrectUser = compareDice(correctAnswer,yourAnswer, whoStart, numberDice);
+			else{
+				for(let i = 0; i < numberDice; i++ ){
+					
+					yourAnswer[i] = rollDice(diceSides);
 
-		}
-		whoStart++;
-	} while(isCorrectUser != true && isCorrectComputer != true);
+				}
+				isCorrectUser = compareDice(correctAnswer,yourAnswer, whoStart, numberDice);
 
-	document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
-
-	do{
-		userInput = prompt("Round four is over. Type begin to start round five!");
-	}while(userInput.toUpperCase() != "BEGIN");
-
+			}
+			whoStart++;
+		} while(isCorrectUser != true && isCorrectComputer != true);
+	}
 	whoStart -= 1;
 
-	beginRound5(whoStart);
+	if(buttonNum == 3){
+
+		document.getElementById("rollButton").onclick = function(){ numRound--; buttonNum++; beginRound4(whoStart);}
+		document.getElementById("beginButton").onclick = function(){ scoreKeeper(tempScore, 2);buttonNum++; beginRound5(whoStart);}
+	}
+	else{
+		document.getElementById("beginButton").onclick = function(){if(buttonNum > 4) { buttonNum = 4;} beginRound5(whoStart); }
+		document.getElementById("rollButton").onclick = function(){};
+	}
 }
 
 function beginRound5(whoStart){
@@ -285,47 +296,52 @@ function beginRound5(whoStart){
 
 	tempScore *= 2;
 	if(numRound == 4){
-		console.log("Round 5");
-		console.log("In round five, your goal will be to get four 12`s. You will be playing with 4 twelve-sided dice.");
+		
+		document.getElementById("whichRound").innerHTML = "ROUND 5";
+		document.getElementById("roundRules").innerHTML = "The goal of round 5 is to get four of a kind of 12s. You will be playing with four 12-sided dice.";
+		document.getElementById("gameScreenText2").innerHTML = "";
+
+
 		tempScore = 500; numRound++;
-	}
+
+		if(buttonNum != 4){
+			tempScore = 1000;
+		}
 
 		do{
-			userInput = prompt("Type roll when you are ready!")
-	}while(userInput.toUpperCase() != "ROLL");
+			if(whoStart % 2 != 0){
 
-	do{
-		if(whoStart % 2 != 0){
+				for(let i = 0; i < numberDice; i++ ){
+					
+					computerAnswer[i] = rollDice(diceSides);
 
-			for(let i = 0; i < numberDice; i++ ){
-				
-				computerAnswer[i] = rollDice(diceSides);
-
-			}
-			isCorrectComputer = compareDice(correctAnswer,computerAnswer, whoStart, numberDice);
-
-		}
-		else{
-			for(let i = 0; i < numberDice; i++ ){
-				
-				yourAnswer[i] = rollDice(diceSides);
+				}
+				isCorrectComputer = compareDice(correctAnswer,computerAnswer, whoStart, numberDice);
 
 			}
-			isCorrectUser = compareDice(correctAnswer,yourAnswer, whoStart, numberDice);
+			else{
+				for(let i = 0; i < numberDice; i++ ){
+					
+					yourAnswer[i] = rollDice(diceSides);
 
-		}
-		whoStart++;
-	} while(isCorrectUser != true && isCorrectComputer != true);
+				}
+				isCorrectUser = compareDice(correctAnswer,yourAnswer, whoStart, numberDice);
 
-	document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
-
-	do{
-		userInput = prompt("Round five is over. Type begin to start round six!");
-	}while(userInput.toUpperCase() != "BEGIN");
-
+			}
+			whoStart++;
+		} while(isCorrectUser != true && isCorrectComputer != true);
+	}
 	whoStart -= 1;
 
-	beginRound6(whoStart);
+	if(buttonNum == 4){
+
+		document.getElementById("rollButton").onclick = function(){ numRound--; buttonNum++; beginRound5(whoStart);}
+		document.getElementById("beginButton").onclick = function(){ scoreKeeper(tempScore, 2);buttonNum++; beginRound6(whoStart);}
+	}
+	else{
+		document.getElementById("beginButton").onclick = function(){if(buttonNum > 5) { buttonNum = 5;} beginRound6(whoStart); }
+		document.getElementById("rollButton").onclick = function(){};
+	}
 }
 
 function beginRound6(whoStart){
@@ -341,59 +357,58 @@ function beginRound6(whoStart){
 
 	tempScore *= 2;
 	if(numRound == 5){
-		console.log("Round 5");
-		console.log("Welcome to the final round! Your goal in the final round will be to get a single 20 using one 20-sided dice.");
+		
+		document.getElementById("whichRound").innerHTML = "ROUND 6";
+		document.getElementById("roundRules").innerHTML = "The goal of round 6 is to get a single 20. You will be playing with one 20-sided dice.";
+		document.getElementById("gameScreenText2").innerHTML = "";
+
 		tempScore = 600; numRound++;
-	}
+
+		if(buttonNum != 5){
+			tempScore = 1200;
+		}
 
 		do{
-			userInput = prompt("Type roll when you are ready!")
-	}while(userInput.toUpperCase() != "ROLL");
+			if(whoStart % 2 != 0){
 
-	do{
-		if(whoStart % 2 != 0){
+				for(let i = 0; i < numberDice; i++ ){
+					
+					computerAnswer[i] = rollDice(diceSides);
 
-			for(let i = 0; i < numberDice; i++ ){
-				
-				computerAnswer[i] = rollDice(diceSides);
-
-			}
-			isCorrectComputer = compareDice(correctAnswer,computerAnswer, whoStart, numberDice);
-
-		}
-		else{
-			for(let i = 0; i < numberDice; i++ ){
-				
-				yourAnswer[i] = rollDice(diceSides);
+				}
+				isCorrectComputer = compareDice(correctAnswer,computerAnswer, whoStart, numberDice);
 
 			}
-			isCorrectUser = compareDice(correctAnswer,yourAnswer, whoStart, numberDice);
+			else{
+				for(let i = 0; i < numberDice; i++ ){
+					
+					yourAnswer[i] = rollDice(diceSides);
 
-		}
-		whoStart++;
-	} while(isCorrectUser != true && isCorrectComputer != true);
+				}
+				isCorrectUser = compareDice(correctAnswer,yourAnswer, whoStart, numberDice);
 
-	document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+			}
+			whoStart++;
+		} while(isCorrectUser != true && isCorrectComputer != true);
+	}
+	whoStart -= 1;
 
-	if(computerScore > userScore){
+	if(buttonNum == 5){
 
-		console.log("The final round is over and the computer had the higher score of: " + computerScore + ". Because of this, the computer will be playing Pig with more dice.");
-		whoStart = 1;
+		document.getElementById("rollButton").onclick = function(){ numRound--; buttonNum++; beginRound6(whoStart);}
+		document.getElementById("beginButton").onclick = function(){ scoreKeeper(tempScore, 2);buttonNum++; beginPig(whoStart);}
 	}
 	else{
-
-		console.log("The final round is over and you had a higher final score of: " + userScore + ". Because of this, you will be playing Pig with more dice.");
-		whoStart = 2;
+		document.getElementById("beginButton").onclick = function(){if(buttonNum > 6) { buttonNum = 6;} beginPig(whoStart); }
+		document.getElementById("rollButton").onclick = function(){};
 	}
-
-	do{
-		userInput = prompt("Type begin to start a game of Pig to determine the winner of the game.");
-	}while(userInput.toUpperCase() != "BEGIN");
-
-	beginPig(whoStart);
 }
 
 function beginPig(whoStart){
+
+	document.getElementById("whichRound").innerHTML = "PIG";
+	document.getElementById("roundRules").innerHTML = "Welcome to PIG! This is the last and final round."
+	+ " In this round, your goal will be to the first one to get a score of 100.";
 
 	let userInput;
 	let diceSides = 6;
@@ -526,7 +541,7 @@ function compareDice(correct, potential, whoStart, number){
 	
 				console.log(potential);
 
-				doubleDown = Math.ceil(Math.random() * 1);
+				doubleDown = Math.ceil(Math.random() * 3);
 
 				if(userScore > computerScore && numRound == 5){
 					doubleDown = 1;

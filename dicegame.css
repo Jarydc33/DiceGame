@@ -37,6 +37,8 @@ body{
 	right:38%;
 	text-align: center;
 	color:green;
+	margin-left:30%;
+	
 }
 
 #gameScreenText2{
@@ -47,13 +49,16 @@ body{
 	color:green;
 }
 
-/*#gameScreenTextHeader{
-	position: absolute;
-	top:25%;
-	right:38%;
-	text-align: center;
-	color:green;
-}*/
+#roundRules{
+
+text-align: center;
+	
+}
+
+#whichRound{
+	text-align:center;
+	text-decoration: underline;
+}
 
 #buttons{
 
