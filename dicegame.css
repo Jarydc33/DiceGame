@@ -3,7 +3,7 @@ html{
 }
 
 body{
-	background-color: #D6D2D2;
+	background-color: #A7A6A6;
 }
 
 #banner{
@@ -23,7 +23,7 @@ body{
 	margin-left:25%;
 	margin-bottom:0;
 	box-shadow: 10px 10px 10px #5B5B5B;
-	border: solid 10px gray;
+	border: solid 10px #E2E2E2;
 	color:green;
 	text-align: right;
 	

@@ -6,10 +6,8 @@ let numRound = 0;
 let currentRound = 1;
 let buttonNum = 0;
 
-document.getElementById("whichRound").innerHTML = "RULES";
-document.getElementById("roundRules").innerHTML = "Welcome to DoubleDown! The goal of the game is to beat the computer by rolling specific dice combinations."
-+ " If you win the round by rolling the combination first you can choose to double down and try to double the round score. If you win the double down, your round score will double and we will move to the next round."
-+ " However, if you lose the double down round, the opponent will get the double score for that round. Whoever has more points after round six will have an advantage when playing Pig to win the game. Good luck!";
+
+
 document.getElementById("gameScreenText").innerHTML = "Welcome to the game! Press roll below to see who will go first!";
 
 document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + " <br /> ";
@@ -297,7 +295,7 @@ function beginRound4(whoStart){
 	}
 }
 
-function beginRound5(whoStart){
+function beginRound5(whoStart, correctAnswer){
 
 	let diceSides = 12;
 	let numberDice = 4;
@@ -424,6 +422,8 @@ function beginPig(whoStart){
 	document.getElementById("whichRound").innerHTML = "PIG";
 	document.getElementById("roundRules").innerHTML = "Welcome to PIG! This is the last and final round."
 	+ " In this round, your goal will be to the first one to get a score of 100.";
+
+	document.getElementById("beginButton").onclick = function(){}
 
 	if(computerScore > userScore){whoStart = 1;}
 	else{whoStart = 2;}
@@ -589,7 +589,7 @@ function compareDice(correct, potential, whoStart, number){
 	
 				console.log(potential);
 
-				doubleDown = Math.ceil(Math.random() * 3);
+				doubleDown = rollDice(3);
 
 				if(userScore > computerScore && numRound == 6){
 					//if the computer is losing in round six and wins the roll, it will always choose to double down
@@ -708,7 +708,3 @@ function scoreKeeper(scoreUpdate, whichScore){
 	}	
 }
 
-function explosion(){
-
-
-}
