@@ -88,11 +88,11 @@ function beginRound1(whoStart){
 
 	if(buttonNum == 0){
 
-		document.getElementById("rollButton").onclick = function(){ numRound--; buttonNum++; beginRound1(whoStart);}
+		document.getElementById("rollButton").onclick = function(){ numRound--; buttonNum++;  beginRound1(whoStart);}
 		document.getElementById("beginButton").onclick = function(){ scoreKeeper(tempScore, 2);buttonNum++; beginRound2(whoStart);}
 	}
 	else{
-		document.getElementById("beginButton").onclick = function(){ beginRound2(whoStart); buttonNum = 0; }
+		document.getElementById("beginButton").onclick = function(){if(buttonNum > 1) { buttonNum = 1;} beginRound2(whoStart);}
 		document.getElementById("rollButton").onclick = function(){};
 	}
 }
@@ -108,7 +108,6 @@ function beginRound2(whoStart){
 	let isCorrectUser;
 	let userInput;
 
-	// buttonNum = 0;
 	document.getElementById("gameScreenText2").innerHTML = "";
 
 	tempScore *= 2;
@@ -151,7 +150,7 @@ function beginRound2(whoStart){
 		document.getElementById("beginButton").onclick = function(){ scoreKeeper(tempScore, 2);buttonNum++; beginRound3(whoStart);}
 	}
 	else{
-		document.getElementById("beginButton").onclick = function(){ beginRound3(whoStart); }
+		document.getElementById("beginButton").onclick = function(){ if(buttonNum > 2) { buttonNum = 2;} beginRound3(whoStart); }
 		document.getElementById("rollButton").onclick = function(){};
 	}
 }
@@ -167,49 +166,54 @@ function beginRound3(whoStart){
 	let isCorrectUser;
 	let userInput;
 
+	document.getElementById("gameScreenText2").innerHTML = "";
+
 	tempScore *= 2;
 	if(numRound == 2){
-		console.log("Round 3");
-		console.log("In round three, your goal will be to get two sets of three of a kind - ones and eights. You will be playing with 6 eight-sided dice.");
+		if(buttonNum > 3){
+			buttonNum = 3;
+		}
+		
 		tempScore = 300; numRound++;
-	}
+
+		if(buttonNum != 2){
+			tempScore = 600;
+		}
 
 		do{
-			userInput = prompt("Type roll when you are ready!")
-	}while(userInput.toUpperCase() != "ROLL");
+			if(whoStart % 2 != 0){
 
-	do{
-		if(whoStart % 2 != 0){
+				for(let i = 0; i < numberDice; i++ ){
+					
+					computerAnswer[i] = rollDice(diceSides);
 
-			for(let i = 0; i < numberDice; i++ ){
-				
-				computerAnswer[i] = rollDice(diceSides);
-
-			}
-			isCorrectComputer = compareDice(correctAnswer,computerAnswer, whoStart, numberDice);
-
-		}
-		else{
-			for(let i = 0; i < numberDice; i++ ){
-				
-				yourAnswer[i] = rollDice(diceSides);
+				}
+				isCorrectComputer = compareDice(correctAnswer,computerAnswer, whoStart, numberDice);
 
 			}
-			isCorrectUser = compareDice(correctAnswer,yourAnswer, whoStart, numberDice);
+			else{
+				for(let i = 0; i < numberDice; i++ ){
+					
+					yourAnswer[i] = rollDice(diceSides);
 
-		}
-		whoStart++;
-	} while(isCorrectUser != true && isCorrectComputer != true);
+				}
+				isCorrectUser = compareDice(correctAnswer,yourAnswer, whoStart, numberDice);
 
-	document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
-
-	do{
-		userInput = prompt("Round three is over. Type begin to start round four!");
-	}while(userInput.toUpperCase() != "BEGIN");
-
+			}
+			whoStart++;
+		} while(isCorrectUser != true && isCorrectComputer != true);
+	}
 	whoStart -= 1;
 
-	beginRound4(whoStart);
+	if(buttonNum == 2){
+
+		document.getElementById("rollButton").onclick = function(){ numRound--; buttonNum++; beginRound3(whoStart);}
+		document.getElementById("beginButton").onclick = function(){ scoreKeeper(tempScore, 2);buttonNum++; beginRound4(whoStart);}
+	}
+	else{
+		document.getElementById("beginButton").onclick = function(){if(buttonNum > 3) { buttonNum = 3;} beginRound4(whoStart); }
+		document.getElementById("rollButton").onclick = function(){};
+	}
 }
 
 function beginRound4(whoStart){
@@ -522,7 +526,7 @@ function compareDice(correct, potential, whoStart, number){
 	
 				console.log(potential);
 
-				doubleDown = Math.ceil(Math.random() * 3);
+				doubleDown = Math.ceil(Math.random() * 1);
 
 				if(userScore > computerScore && numRound == 5){
 					doubleDown = 1;
@@ -537,7 +541,7 @@ function compareDice(correct, potential, whoStart, number){
 				else{
 
 					document.getElementById("gameScreenText").innerHTML = "The computer won the round with " + potential 
-					+ " and decided to keep his points and begin the next round.";
+					+ " and decided to keep his points and begin the next round. Press begin to start.";
 					scoreKeeper(tempScore, 1);
 					buttonNum++;
 					return true;
