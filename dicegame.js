@@ -12,7 +12,7 @@ document.getElementById("roundRules").innerHTML = "Welcome to DoubleDown! The go
 + " However, if you lose the double down round, the opponent will get the double score for that round. Whoever has more points after round six will have an advantage when playing Pig to win the game. Good luck!";
 document.getElementById("gameScreenText").innerHTML = "Welcome to the game! Press roll below to see who will go first!";
 
-document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + " <br /> ";
 
 
 document.getElementById("rollButton").onclick = function(){ startGame(); }
@@ -396,7 +396,7 @@ function beginRound6(whoStart){
 	whoStart -= 1;
 
 	if(buttonNum == 5){
-
+		
 		document.getElementById("rollButton").onclick = function(){ numRound--; buttonNum++; beginRound6(whoStart);}
 		document.getElementById("beginButton").onclick = function(){ scoreKeeper(tempScore, 2);buttonNum++; beginPig(whoStart);}
 	}
@@ -419,7 +419,7 @@ function beginPig(whoStart){
 	let computerDice;
 	let userDice;
 
-	document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+	document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br /> ";
 
 	if(whoStart % 2 != 0){
 
@@ -439,12 +439,12 @@ function beginPig(whoStart){
 			userScore += rollDice(diceSides);
 
 		}
-		document.getElementById("gameScreenText").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+		document.getElementById("gameScreenText").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br /> ";
 		document.getElementById("gameScreen").innerHTML = "";
 
 		if(computerScore > 100 && userScore < 100){
 
-			document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+			document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br /> ";
 			document.getElementById("gameScreenText").innerHTML = "Darn! The computer has won the game! Press begin to play again!";
 
 			document.getElementById("rollButton").onclick = function(){};
@@ -454,14 +454,14 @@ function beginPig(whoStart){
 			tempScore = 0;
 			numRound = 0;
 			currentRound = 1;
-			buttonNum = 0;
-			document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+			buttonNum = 0; 
+			document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br /> ";
 			startGame(); 
 			}
 		}
 		else if(userScore >= 100){
 
-			document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+			document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br /> ";
 			document.getElementById("gameScreenText").innerHTML = "Congrats! You won the game! Press begin to play again!";
 
 			document.getElementById("rollButton").onclick = function(){};
@@ -472,12 +472,11 @@ function beginPig(whoStart){
 				numRound = 0;
 				currentRound = 1;
 				buttonNum = 0;
-				document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+				document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br /> ";
 				startGame(); 
 			}
 		}
 
-		document.getElementById("beginButton").onclick = function(){};
 		}
 	
 	}
@@ -499,12 +498,12 @@ function beginPig(whoStart){
 			userScore += rollDice(diceSides);
 
 		}
-		document.getElementById("gameScreenText").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+		document.getElementById("gameScreenText").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br /> ";
 		document.getElementById("gameScreen").innerHTML = "";
 
 		if(computerScore > 100 && userScore < 100){
 
-			document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+			document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br /> ";
 			document.getElementById("gameScreenText").innerHTML = "Darn! The computer has won the game! Press begin to play again!";
 
 			document.getElementById("rollButton").onclick = function(){};
@@ -516,13 +515,13 @@ function beginPig(whoStart){
 				numRound = 0;
 				currentRound = 1;
 				buttonNum = 0;
-				document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+				document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br /> ";
 				startGame(); 
 			}
 		}
 		else if(userScore >= 100){
 
-			document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+			document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br /> ";
 			document.getElementById("gameScreenText").innerHTML = "Congrats! You won the game! Press begin to play again!";
 
 			document.getElementById("rollButton").onclick = function(){};
@@ -533,16 +532,14 @@ function beginPig(whoStart){
 				numRound = 0;
 				currentRound = 1;
 				buttonNum = 0;
-				document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+				document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br /> ";
 				startGame(); 
 			}
 		}
 
-	document.getElementById("beginButton").onclick = function(){};
-
 	}
 
-	document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+	document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br /> ";
 
 	}	
 }
@@ -683,14 +680,14 @@ function scoreKeeper(scoreUpdate, whichScore){
 	if(whichScore == 1){
 
 		computerScore += scoreUpdate
-		document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+		document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br /> ";
 
 		// return computerScore;
 	}
 	else if(whichScore == 2){
 
 		userScore +=scoreUpdate;
-		document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br />";
+		document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + "<br /> ";
 		// return userScore;
 	}	
 }

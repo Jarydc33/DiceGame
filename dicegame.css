@@ -3,28 +3,27 @@ html{
 }
 
 body{
-
+	background-color: #D6D2D2;
 }
 
 #banner{
 
 	width:100%;
-	height: 100px;
-	background-color: black;
-	color:green;
+	height: 200px;
+	background-image: url('../dicebanner.jpg');
+	box-shadow: 10px 10px 10px #5B5B5B;
 
 }
 
 #gameScreen{
 
 	width:50%;
-	height:35%;
+	height:400px;
 	background-color: black;
-	position:absolute;
-	top:25%;
-	right:25%;
-	box-shadow: 10px 10px 10px #ccc;
-	border: solid 1px #666666;
+	margin-left:25%;
+	margin-bottom:0;
+	box-shadow: 10px 10px 10px #5B5B5B;
+	border: solid 10px gray;
 	color:green;
 	text-align: right;
 	
@@ -33,21 +32,33 @@ body{
 #gameScreenText{
 
 	position: absolute;
-	top:40%;
+	top:50%;
 	right:38%;
-	text-align: center;
 	color:green;
 	margin-left:30%;
-	
+
 }
 
 #gameScreenText2{
 
 	position: absolute;
-	top: 50%;
-	right:38%;
+	top: 60%;
+	right:43%;
 	color:green;
 }
+
+/*#gameScreenText{
+
+	text-align:center;
+	color:green;
+}
+
+#gameScreenText2{
+
+	
+	color:green;
+	margin-top:5%;
+}*/
 
 #roundRules{
 
@@ -58,23 +69,20 @@ text-align: center;
 #whichRound{
 	text-align:center;
 	text-decoration: underline;
-}
-
-#buttons{
-
-	position:absolute;
-	right: 47%;
-	top:60%;
-	margin: 5px;
-	cursor: pointer;
-
-
+	margin-top: 15px;
 }
 
 #rollButton{
-
+	cursor:pointer;
+	margin-left:47%;
+	margin-top:15px;
+	margin-right:5px;
+	box-shadow: 10px 10px 10px #5B5B5B;
 }
 
 #beginButton{
-
+	cursor:pointer;
+	box-shadow: 10px 10px 10px #5B5B5B;
 }
+
+
